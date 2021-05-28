@@ -1,11 +1,18 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
+  noticeApp: {
+    alignItems: 'center',
+    padding: '10px 50px',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
+  },
   media: {
     borderRadius: '20px',
     objectFit: 'cover',
     width: '100%',
-    maxHeight: '600px',
+    maxHeight: '500px',
 
   },
   card: {
@@ -23,7 +30,7 @@ export default makeStyles((theme) => ({
   },
   imageSection: {
     marginLeft: '20px',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       marginLeft: 0,
     },
   },

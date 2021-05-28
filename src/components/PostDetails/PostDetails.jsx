@@ -41,14 +41,16 @@ const Post = () => {
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
-        <div className={classes.section}>
-          <Typography variant="h3" component="h2">{post.title}</Typography>
+        <div className={classes.imageSection}>
+          <Typography align="center" variant="h3" component="h2">{post.title}</Typography>
+          <Typography align="center" className={classes.noticeApp} gutterBottom variant="body1" component="p">{post.resume}</Typography>
+          <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{post.description}</Typography>
           <Typography variant="h6">Publicado por: {post.autor}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
         </div>
-        <div className={classes.imageSection}>
+        <div className={classes.section}>
           <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
         </div>
       </div>
