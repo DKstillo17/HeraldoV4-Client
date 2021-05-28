@@ -3,10 +3,14 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from '@material-ui/core/InputBase';
 
 import logoHeraldo from '../../images/el-heraldo-logo.svg';
 import * as actionType from '../../constants/actionTypes';
 import useStyles from './styles';
+import { getPostsBySearch } from '../../actions/posts';
+import Posts from '../Posts/Posts';
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -14,6 +18,11 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [search, setSearch] = useState('');
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -21,6 +30,21 @@ const Navbar = () => {
     history.push('/auth');
 
     setUser(null);
+  };
+
+  const searchPost = () => {
+    if (search.trim()) {
+      dispatch(getPostsBySearch({ search }));
+      history.push(`/posts/search?searchQuery=${search}`);
+    } else {
+      history.push('/');
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      searchPost();
+    }
   };
 
   useEffect(() => {
@@ -37,6 +61,21 @@ const Navbar = () => {
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
+      <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+                </div>
+                <InputBase onChange={(e) => setSearch(e.target.value)} onKeyDown={handleKeyPress}
+                  name="search"
+                  value={search}
+                  placeholder="Buscar"
+                  classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </div>
       <Link to="/" className={classes.brandContainer}>
         <img component={Link} to="/" src={logoHeraldo} alt="icon" height="45px" />
       </Link>

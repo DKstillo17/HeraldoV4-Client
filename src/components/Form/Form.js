@@ -60,18 +60,19 @@ const Form = ({ currentId, setCurrentId }) => {
     <Paper className={classes.paper} elevation={6}>
       <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h6">{currentId ? `Editando "${post.title}"` : 'Crear noticia'}</Typography>
-        <TextField className={classes.fileInput} name="title" variant="outlined" label="Titulo" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
+        <TextField inputProps={{ maxLength: 200 }} className={classes.fileInput} name="title" variant="outlined" label="Titulo" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })}/>
         <TextField multiline rows={4} name="description" variant="outlined" label="Descripción" fullWidth value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })}/>
-        <TextField multiline rows={2} name="resume" variant="outlined" label="Resumen" fullWidth value={postData.resume} onChange={(e) => setPostData({ ...postData, resume: e.target.value })}/>
+        <TextField inputProps={{ maxLength: 700 }} multiline rows={2} name="resume" variant="outlined" label="Resumen" fullWidth value={postData.resume} onChange={(e) => setPostData({ ...postData, resume: e.target.value })}/>
         <FormControl variant="outlined" fullWidth className={classes.fileInput}>
           <InputLabel id="label-category">Categoria</InputLabel>
             <Select labelId="label-category" id="demo-simple-select-outlined" value={postData.category} onChange={(e) => setPostData({ ...postData, category: e.target.value })} label="Categoria">
+              <MenuItem value="Locales">Locales</MenuItem>
+              <MenuItem value="Política">Política</MenuItem>
+              <MenuItem value="Economía">Economía</MenuItem>
               <MenuItem value="Deportes">Deportes</MenuItem>
-              <MenuItem value="Politica">Politica</MenuItem>
-              <MenuItem value="Economia">Economia</MenuItem>
             </Select>
         </FormControl>
-        <TextField name="autor" variant="outlined" label="Autor" fullWidth value={postData.autor} onChange={(e) => setPostData({ ...postData, autor: e.target.value })}/>
+        <TextField inputProps={{ maxLength: 30 }} name="autor" variant="outlined" label="Autor" fullWidth value={postData.autor} onChange={(e) => setPostData({ ...postData, autor: e.target.value })}/>
         <TextField name="tags" variant="outlined" label="Etiqueta" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>
         {/*<div style={{ padding: '5px 0', width: '94%' }}>
           <ChipInput
